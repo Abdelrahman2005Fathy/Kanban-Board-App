@@ -22,6 +22,8 @@ export default {
       "light-grey": "#F4F7FD",
       red: "#EA5555",
       "red-hover": "#FF9898",
+      green: "#05f6d5",
+      textColor: "#333333"
     },
     fontSize: {
       "heading-s": [".75rem", { fontWeight: "700" }],

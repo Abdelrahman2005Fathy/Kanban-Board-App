@@ -1,12 +1,18 @@
-import { DataContext } from "@/DataContext";
-import { produce } from "immer";
-import { useContext, useState } from "react";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import {
+  useContext,
+  useState,
+} from 'react';
+
+import { produce } from 'immer';
+
+import { DataContext } from '@/DataContext';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const Card = ({ title, columnId, cardId, columnIndex, cardIndex }) => {
-  const { setData, selectedBoardIndex } = useContext(DataContext);
+  const { setData, selectedBoardIndex, data } = useContext(DataContext); // أضف data هنا
   const [isEditMode, setIsEditMode] = useState(false);
+
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: cardId,
@@ -66,7 +72,7 @@ const Card = ({ title, columnId, cardId, columnIndex, cardIndex }) => {
 
   return (
     <div
-      className="group/card relative min-h-16 overflow-y-hidden rounded-lg bg-white px-4 py-3 shadow-sm"
+      className={`group/card relative min-h-16 overflow-y-hidden rounded-lg px-4 py-3 shadow-sm`} //bg-green in this div
       ref={setNodeRef}
       style={style}
       {...attributes}
@@ -74,7 +80,7 @@ const Card = ({ title, columnId, cardId, columnIndex, cardIndex }) => {
     >
       {isEditMode ? (
         <textarea
-          className="h-full resize-none text-heading-m outline-light-grey"
+          className={`h-full resize-none text-heading-m outline-light-grey`}
           defaultValue={title}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
@@ -83,14 +89,14 @@ const Card = ({ title, columnId, cardId, columnIndex, cardIndex }) => {
         ></textarea>
       ) : (
         <button
-          className="peer h-full text-start text-heading-m"
+          className={`peer h-full text-start text-heading-m`}
           onClick={toggleEditMode}
         >
           {title}
         </button>
       )}
       <button
-        className="absolute bottom-0 right-0 top-0 bg-white p-2 text-body-m text-red opacity-0 shadow duration-300 focus:opacity-100 group-hover/card:opacity-100 peer-focus:opacity-100"
+        className="absolute bottom-0 right-0 top-0 bg-inherit p-2 text-body-m text-red opacity-0 shadow duration-300 focus:opacity-100 group-hover/card:opacity-100 peer-focus:opacity-100"
         onClick={onDeleteHandler}
       >
         Delete

@@ -1,11 +1,15 @@
-import { DataContext } from "@/DataContext";
-import Card from "./Card";
-import { useContext } from "react";
-import { produce } from "immer";
+import { useContext } from 'react';
+
+import { produce } from 'immer';
+
+import { DataContext } from '@/DataContext';
+
+import Card from './Card';
 
 const Column = ({ id, title, tasks = [], columnIndex }) => {
   const { selectedBoardIndex, data, setData } = useContext(DataContext);
 
+  const isDone = title === "Done";
   const createNewTask = () => ({
     id: Date.now(),
     title: "New Task",
@@ -21,13 +25,14 @@ const Column = ({ id, title, tasks = [], columnIndex }) => {
       }
       return column;
     });
+
   };
 
   const addNewTaskHandler = () => {
     const newTask = createNewTask();
 
     const newColumns = createNewColumnArray(data, selectedBoardIndex, newTask);
-
+    
     setData((prev) =>
       produce(prev, (draft) => {
         draft[selectedBoardIndex].columns = newColumns;
@@ -48,17 +53,17 @@ const Column = ({ id, title, tasks = [], columnIndex }) => {
   };
 
   return (
-    <div className="flex w-72 shrink-0 flex-col self-start rounded-lg bg-lines-light px-2 shadow">
+    <div className={`flex w-72 shrink-0 flex-col self-start rounded-lg bg-lines-light px-2 shadow`}>
       <h2 className="group/column relative top-0 rounded bg-lines-light px-2 py-4 text-heading-s">
-        {title} ({tasks.length})
+        {title} [{tasks.length}]
         <button
-          className="absolute bottom-0 right-0 top-0 p-2 text-body-m text-red opacity-0 duration-300 focus:opacity-100 group-hover/column:opacity-100"
+          className={` absolute bottom-0 right-0 top-0 p-2 text-body-m text-red opacity-0 duration-300 focus:opacity-100 group-hover/column:opacity-100`}
           onClick={onDeleteHandler}
         >
           Delete
         </button>
       </h2>
-      <div className="mb-5 flex flex-col gap-5">
+      <div className={`${isDone ? "bg-green text-textColor font-sans text-center gap-1" : "bg-inherit"} rounded-md mb-5 flex flex-col gap-5`}>
         {tasks.map((task, index) => (
           <Card
             key={task.id}

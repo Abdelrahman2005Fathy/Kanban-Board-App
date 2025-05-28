@@ -1,8 +1,13 @@
-import { useContext, useState } from "react";
-import Button from "./Button";
-import TextField from "./TextField";
-import iconCross from "@assets/icon-cross.svg";
-import { DataContext } from "../DataContext";
+import {
+  useContext,
+  useState,
+} from 'react';
+
+import iconCross from '@assets/icon-cross.svg';
+
+import { DataContext } from '../DataContext';
+import Button from './Button';
+import TextField from './TextField';
 
 const AddNewBoardForm = ({
   toggleDialog,

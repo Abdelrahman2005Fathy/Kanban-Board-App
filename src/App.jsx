@@ -1,8 +1,13 @@
-import Header from "@components/Header";
-import SideMenu from "./components/SideMenu";
-import Workspace from "./components/Workspace";
-import { useEffect, useState } from "react";
-import { DataContext } from "./DataContext";
+import {
+  useEffect,
+  useState,
+} from 'react';
+
+import Header from '@components/Header';
+
+import SideMenu from './components/SideMenu';
+import Workspace from './components/Workspace';
+import { DataContext } from './DataContext';
 
 function App() {
   const [dataState, setDataState] = useState([]);
@@ -13,7 +18,6 @@ function App() {
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
-        // تحقق من أن البيانات التي تم تحميلها صحيحة
         if (Array.isArray(parsedData) && parsedData.length > 0) {
           setDataState(parsedData);
         } else {
@@ -26,7 +30,6 @@ function App() {
           ]);
         }
       } catch (error) {
-        // في حال حدوث خطأ في التحميل، قم بإعداد بيانات افتراضية
         console.error("Error loading data from localStorage:", error);
         setDataState([
           {
@@ -37,7 +40,6 @@ function App() {
         ]);
       }
     } else {
-      // في حالة عدم وجود بيانات في localStorage، قم بإعداد بيانات افتراضية
       setDataState([
         {
           id: Date.now(),
